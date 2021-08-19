@@ -22,6 +22,7 @@ app.listen(port, () => {
 //At every 5th minute
 cron.schedule('*/5 * * * *', () => {
     Cron.getNews()
+    Cron.getSubLessons()
 });
 
 //At 18:00 on every day-of-week from Sunday through Thursday
