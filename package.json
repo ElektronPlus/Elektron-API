@@ -1,0 +1,25 @@
+{
+  "name": "elektron-api-node",
+  "version": "1.0.0",
+  "description": "Api aplikacji Elektron++",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krystian Wybranowski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "firebase-admin": "^9.11.0",
+    "fs": "^0.0.1-security",
+    "got": "^11.8.2",
+    "jsdom": "^17.0.0",
+    "moment": "^2.29.1",
+    "node-cron": "^3.0.0",
+    "path": "^0.12.7",
+    "website-scraper": "^4.2.3"
+  }
+}
