@@ -11,9 +11,8 @@ let newsRef = db.ref("Newsy");
 let lnumberRef = db.ref("LuckyNumber");
 
 module.exports = {
-    insertNews: function(title, content, time) {
+    insertNews: function(content, time) {
         newsRef.push().set({
-            title: title,
             content: content,
             time: time
         }, (error) => {

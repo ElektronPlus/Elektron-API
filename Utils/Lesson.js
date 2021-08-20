@@ -74,7 +74,7 @@ module.exports = {
         function countDuration (type, number, now, timeStart, timeEnd) {
             let duration = moment.duration(now.diff(timeEnd)).humanize();
             let percentage_complete = (now - timeStart) / (timeEnd - timeStart) * 100;
-            let percentage_rounded = (Math.round(percentage_complete * 100) / 100)+"%";
+            let percentage_rounded = (Math.round(percentage_complete) / 100);
             let result = {
                 type: type,
                 number: number,

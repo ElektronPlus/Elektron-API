@@ -3,7 +3,6 @@ const { AuthenticationSecret } = require("../tajne.json");
 
 module.exports = function (app) {
     app.post("/admin/insertNews", (req, res) => {
-        let title = req.body.title;
         let content = req.body.content;
         let time = Math.floor(Date.now() / 1000);
 
@@ -11,7 +10,7 @@ module.exports = function (app) {
         if (!authSecret || authSecret !== AuthenticationSecret) {
             res.status(401).json({ "error": "401 Unauthorised" });
         } else {
-            if (!( title || content )) {
+            if (!content) {
                 res.status(400).json({ "error": "400 Bad Request" });
             } else {
                 Database.insertNews(title, content, time)
