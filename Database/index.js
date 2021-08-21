@@ -51,4 +51,15 @@ module.exports = {
             })
         })
     },
+    isShortLessons: async function () {
+        return new Promise(promise => {
+            db.ref("shortLessons").once("value", function(snapshot){
+                if (snapshot.exists()) {
+                    promise(snapshot.val());
+                } else {
+                    promise(false)
+                }
+            })
+        })
+    },
 }
