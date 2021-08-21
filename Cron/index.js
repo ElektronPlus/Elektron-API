@@ -74,9 +74,9 @@ module.exports = {
                 });
             }
             let result = {
-                todaySubLessonsDay: todaySubLessonsDay,
-                todaySubLessons: todaySubLessons ?? "Brak zastępstw",
-                nextDaySubLessonsDay: nextDaySubLessonsDay ?? "Brak zastępstw na kolejny dzień",
+                todaySubLessonsDay: todaySubLessonsDay ?? "",
+                todaySubLessons: todaySubLessons ?? "",
+                nextDaySubLessonsDay: nextDaySubLessonsDay ?? "",
                 nextDaySubLessons: nextDaySubLessons ?? ""
             }
             const jsonContent = JSON.stringify(result);

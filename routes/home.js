@@ -1,5 +1,6 @@
 const Database = require("../Database");
 const Lesson = require("../Utils/Lesson");
+const Counter = require("../Utils/Counter");
 const moment = require('moment');
 moment.locale('pl');
 
@@ -15,7 +16,8 @@ module.exports = function (app) {
                 let lesson = data
                 Database.getLuckyNumber().then((data) => {
                     let luckyNumber = data
-                    res.status(200).send({news: news, lesson: lesson, luckyNumber: luckyNumber});
+                    let vacation = Counter.countVacation()
+                    res.status(200).send({news: news, lesson: lesson, luckyNumber: luckyNumber, vacation: vacation });
                 })
             })
         })   
