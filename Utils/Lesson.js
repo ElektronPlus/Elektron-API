@@ -16,7 +16,6 @@ module.exports = {
                 hours = lessonHoursShort
                 isShortLessons = true
             } 
-
             let lesson1Start = moment(hours[1].start, format)
             let lesson1End = moment(hours[1].end, format)
             let lesson2Start = moment(hours[2].start, format)
@@ -35,8 +34,9 @@ module.exports = {
             let lesson8End = moment(hours[8].end, format)
             let lesson9Start = moment(hours[9].start, format)
             let lesson9End = moment(hours[9].end, format)
-            let night = moment('18:00', format)
+            let night = moment('19:00', format)
 
+            if(now.day() != 6 && now.day() != 0){
             if(now.isBetween(lesson1Start, lesson1End) || now.isSame(lesson1Start) || now.isSame(lesson1End)){
                 countDuration("Lekcja", 1, now, lesson1Start, lesson1End)
             }else if(now.isBetween(lesson1End, lesson2Start)){
@@ -76,9 +76,10 @@ module.exports = {
             }else if (now.isAfter(night) || now.isSame(night)){
                 promise({type: "evening", isShortLessons: isShortLessons});
             }else if (now.isBefore(lesson1Start)){
-                promise({type: "morning", isShortLessons: isShortLessons});
+                countDuration("morning", 0, now, lesson1Start, lesson1Start)
+            }
             }else{
-                promise({error: true});
+                promise({type: "weekend", isShortLessons: isShortLessons});
             }
         })
 
