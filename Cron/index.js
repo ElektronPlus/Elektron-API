@@ -75,9 +75,9 @@ module.exports = {
             }
             let result = {
                 todaySubLessonsDay: todaySubLessonsDay ?? "",
-                todaySubLessons: todaySubLessons ?? "",
+                todaySubLessons: todaySubLessons ?? "brak zastępstw",
                 nextDaySubLessonsDay: nextDaySubLessonsDay ?? "",
-                nextDaySubLessons: nextDaySubLessons ?? ""
+                nextDaySubLessons: nextDaySubLessons ?? "brak zastępstw"
             }
             const jsonContent = JSON.stringify(result);
             fs.writeFile("./json/subLessons.json", jsonContent, 'utf8', function (err) {
