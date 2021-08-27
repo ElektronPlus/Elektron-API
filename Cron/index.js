@@ -45,47 +45,64 @@ module.exports = {
     },
     getSubLessons: function () {
         const { JSDOM } = jsdom;
+        let todaySubLessons, todaySubLessonsDay, nextDay;
+        let nextDaySubLessons, nextDaySubLessonsDay;
+        
         got("https://zseis.zgora.pl/zastepstwa.php").then(response => {
-            let todaySubLessons, todaySubLessonsDay, nextDay;
-            let nextDaySubLessons, nextDaySubLessonsDay;
             const dom = new JSDOM(response.body).window.document;
             dom.querySelectorAll('.content_start span').forEach(day => {
                 todaySubLessonsDay = day.textContent
             });
             dom.querySelectorAll('div.zast').forEach(subLessons => {
                 todaySubLessons = subLessons.textContent
+                todaySubLessons = todaySubLessons.slice(0, -12);
             });
             dom.querySelectorAll('a.stand').forEach(link => {
                 if(link.textContent != "Archiwum"){
                     nextDay = link.getAttribute('href')
                 }
-            });
+            });      
             if(nextDay){
                 got("https://zseis.zgora.pl/"+nextDay).then(response => {
                     const dom = new JSDOM(response.body).window.document;
                     dom.querySelectorAll('.content_start span').forEach(day => {
                         nextDaySubLessonsDay = day.textContent
+    
                     });
                     dom.querySelectorAll('div.zast').forEach(subLessons => {
                         nextDaySubLessons = subLessons.textContent
+                        nextDaySubLessons = nextDaySubLessons.slice(0, -12);
                     });
+
+                    let result = {
+                        todaySubLessonsDay: todaySubLessonsDay ?? "",
+                        todaySubLessons: todaySubLessons ?? "brak zastępstw",
+                        nextDaySubLessonsDay: nextDaySubLessonsDay ?? "",
+                        nextDaySubLessons: nextDaySubLessons ?? "brak zastępstw"
+                    }
+                    const jsonContent = JSON.stringify(result);
+                    fs.writeFile("./json/subLessons.json", jsonContent, 'utf8', function (err) {
+                        if (err) {
+                            return console.log("Błąd zapisu newsow: "+err);
+                        }
+                    });  
                 }).catch(err => {
                     console.log("Błąd pobrania zastępstw na next day: "+err);
                 });
-            }
-            let result = {
-                todaySubLessonsDay: todaySubLessonsDay ?? "",
-                todaySubLessons: todaySubLessons ?? "brak zastępstw",
-                nextDaySubLessonsDay: nextDaySubLessonsDay ?? "",
-                nextDaySubLessons: nextDaySubLessons ?? "brak zastępstw"
-            }
-            const jsonContent = JSON.stringify(result);
-            fs.writeFile("./json/subLessons.json", jsonContent, 'utf8', function (err) {
-                if (err) {
-                    return console.log("Błąd zapisu newsow: "+err);
+            }else{
+                let result = {
+                    todaySubLessonsDay: todaySubLessonsDay ?? "",
+                    todaySubLessons: todaySubLessons ?? "brak zastępstw",
+                    nextDaySubLessonsDay: nextDaySubLessonsDay ?? "",
+                    nextDaySubLessons: nextDaySubLessons ?? "brak zastępstw"
                 }
-            });  
-            
+                const jsonContent = JSON.stringify(result);
+                fs.writeFile("./json/subLessons.json", jsonContent, 'utf8', function (err) {
+                    if (err) {
+                        return console.log("Błąd zapisu newsow: "+err);
+                    }
+                });  
+            }
         }).catch(err => {
             console.log("Błąd pobrania zastępstw: "+err);
         });
