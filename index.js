@@ -29,3 +29,5 @@ cron.schedule('*/5 * * * *', () => {
 cron.schedule('0 18 * * 0-4', () => {
     Cron.drawLuckyNumber()
 });
+
+Cron.getSubLessons()

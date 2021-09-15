@@ -54,7 +54,10 @@ module.exports = {
                 todaySubLessonsDay = day.textContent
             });
             dom.querySelectorAll('div.zast').forEach(subLessons => {
-                todaySubLessons = subLessons.textContent
+                todaySubLessons = subLessons.innerHTML
+                todaySubLessons = todaySubLessons.replace(/<br\s*[\/]?>/gi, "\n")
+                todaySubLessons = todaySubLessons.replace(/<[^>]*>?/gm, '')
+                todaySubLessons = todaySubLessons.replace('&nbsp;', '')
                 todaySubLessons = todaySubLessons.slice(0, -12);
             });
             dom.querySelectorAll('a.stand').forEach(link => {
@@ -70,7 +73,10 @@ module.exports = {
     
                     });
                     dom.querySelectorAll('div.zast').forEach(subLessons => {
-                        nextDaySubLessons = subLessons.textContent
+                        nextDaySubLessons = subLessons.innerHTML
+                        nextDaySubLessons = nextDaySubLessons.replace(/<br\s*[\/]?>/gi, "\n")
+                        nextDaySubLessons = nextDaySubLessons.replace(/<[^>]*>?/gm, '')
+                        nextDaySubLessons = nextDaySubLessons.replace('&nbsp;', '')
                         nextDaySubLessons = nextDaySubLessons.slice(0, -12);
                     });
 
