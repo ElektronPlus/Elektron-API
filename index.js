@@ -12,7 +12,7 @@ app.use(cors({origin: '*'}));
 require('./routes')(app);
 
 app.get('/', (req, res) => {
-  res.redirect('https://elektronplus.pl/');
+  res.redirect('https://play.google.com/store/apps/details?id=pl.krystian_wybranowski.elektronPlus');
 });
 
 app.listen(port, () => {
@@ -23,11 +23,6 @@ app.listen(port, () => {
 cron.schedule('*/5 * * * *', () => {
     Cron.getNews()
     Cron.getSubLessons()
-});
-
-//At 18:00 on every day-of-week from Sunday through Thursday
-cron.schedule('0 18 * * 0-4', () => {
-    Cron.drawLuckyNumber()
 });
 
 Cron.getSubLessons()
